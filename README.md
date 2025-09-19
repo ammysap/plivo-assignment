@@ -614,10 +614,6 @@ go build -o pubsub-gateway .
 go run -race main.go
 ```
 
-## 📞 Support
-
-For questions or issues, please refer to the code documentation or create an issue in the repository.
-
 ---
 
-**Built with ❤️ using Go, Gin, and WebSockets**
+**Built with ❤️ using Go, Gin, and WebSockets by AMAN**
