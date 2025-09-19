@@ -293,7 +293,7 @@ func (h *WebSocketHandler) handlePublish(ctx context.Context, client *Client, re
 }
 
 // handlePing handles ping requests
-func (h *WebSocketHandler) handlePing(ctx context.Context, client *Client, req *WSRequest, response *WSResponse) {
+func (h *WebSocketHandler) handlePing(ctx context.Context, client *Client, _ *WSRequest, response *WSResponse) {
 	response.Type = WSResponseTypePong
 	logging.WithContext(ctx).Debug("Received ping from client", "client_id", client.ID)
 }
@@ -319,7 +319,7 @@ func (h *WebSocketHandler) messageSender(client *Client) {
 			messageSent := false
 			for _, subscriber := range subscriptions {
 				select {
-				case message := <-subscriber.MessageChan:
+				case message := <-subscriber.MessageChan: // non blocking
 					response := &WSResponse{
 						Type:      WSResponseTypeEvent,
 						Topic:     message.Topic,
