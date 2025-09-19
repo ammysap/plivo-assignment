@@ -118,3 +118,6 @@ jspm_packages/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Debug files
+__debug_bin*
