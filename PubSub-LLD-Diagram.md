@@ -5,70 +5,70 @@
 ```mermaid
 erDiagram
     SERVICE {
-        map topics
-        Config config
-        time startTime
-        RWMutex mu
-        chan shutdown
-        WaitGroup wg
+        string topics "map[string]*Topic"
+        string config "Config"
+        string startTime "time.Time"
+        string mu "sync.RWMutex"
+        string shutdown "chan struct{}"
+        string wg "sync.WaitGroup"
     }
     
     TOPIC {
-        string name
-        map subscribers
-        RingBuffer messages
-        time createdAt
-        RWMutex mu
+        string name "string"
+        string subscribers "map[string]*Subscriber"
+        string messages "RingBuffer"
+        string createdAt "time.Time"
+        string mu "sync.RWMutex"
     }
     
     RING_BUFFER {
-        array buffer
-        int size
-        int head
-        int tail
-        int count
-        RWMutex mu
+        string buffer "[]*Message"
+        string size "int"
+        string head "int"
+        string tail "int"
+        string count "int"
+        string mu "sync.RWMutex"
     }
     
     MESSAGE {
-        string id
-        interface payload
-        string topic
-        time timestamp
+        string id "string"
+        string payload "interface{}"
+        string topic "string"
+        string timestamp "time.Time"
     }
     
     SUBSCRIBER {
-        string clientID
-        string topicName
-        chan messageChan
-        time lastSeen
+        string clientID "string"
+        string topicName "string"
+        string messageChan "chan *Message"
+        string lastSeen "time.Time"
     }
     
     WEBSOCKET_CLIENT {
-        string id
-        websocket.Conn conn
-        map subscriptions
-        RWMutex mu
-        chan done
+        string id "string"
+        string conn "websocket.Conn"
+        string subscriptions "map[string]*Subscriber"
+        string mu "sync.RWMutex"
+        string done "chan struct{}"
     }
     
     WEBSOCKET_HANDLER {
-        pubsub.Service pubsubService
-        map clients
-        RWMutex clientsMu
-        chan shutdown
+        string pubsubService "pubsub.Service"
+        string clients "map[string]*Client"
+        string clientsMu "sync.RWMutex"
+        string shutdown "chan struct{}"
     }
     
     CONFIG {
-        int ringBufferSize
-        int channelBufferSize
+        string ringBufferSize "int"
+        string channelBufferSize "int"
     }
     
     USER {
-        string id
-        string username
-        string hashedPassword
-        time createdAt
+        string id "string"
+        string username "string"
+        string hashedPassword "string"
+        string createdAt "time.Time"
     }
     
     %% Relationships
@@ -312,5 +312,3 @@ graph TD
 ```
 
 ---
-
-**Note**: Copy any of these Mermaid diagrams into your Notion document. Notion supports Mermaid rendering, so they will display as beautiful, interactive diagrams.
