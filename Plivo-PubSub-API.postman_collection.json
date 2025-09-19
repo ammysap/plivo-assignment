@@ -1,0 +1,446 @@
+{
+	"info": {
+		"_postman_id": "plivo-pubsub-api",
+		"name": "Plivo PubSub API",
+		"description": "Complete API collection for Plivo PubSub Gateway Service including REST APIs and WebSocket testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health & Stats",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Get detailed health information about the PubSub service"
+					},
+					"response": []
+				},
+				{
+					"name": "Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stats"
+							]
+						},
+						"description": "Get statistics about topics and subscribers"
+					},
+					"response": []
+				}
+			],
+			"description": "Health check and statistics endpoints"
+		},
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\",\n  \"email\": \"test@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						},
+						"description": "Register a new user"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Login with username and password"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						},
+						"description": "Get current user profile (requires authentication)"
+					},
+					"response": []
+				}
+			],
+			"description": "User management endpoints"
+		},
+		{
+			"name": "Topic Management",
+			"item": [
+				{
+					"name": "Create Topic",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"test-topic\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/topics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"topics"
+							]
+						},
+						"description": "Create a new topic"
+					},
+					"response": []
+				},
+				{
+					"name": "List Topics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/topics",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"topics"
+							]
+						},
+						"description": "List all available topics"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Topic",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/topics/{{topic_name}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"topics",
+								"{{topic_name}}"
+							]
+						},
+						"description": "Delete a specific topic"
+					},
+					"response": []
+				}
+			],
+			"description": "Topic management endpoints (require authentication)"
+		},
+		{
+			"name": "WebSocket Testing",
+			"item": [
+				{
+					"name": "WebSocket Connection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws?token={{auth_token}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{auth_token}}",
+									"description": "JWT token for authentication"
+								}
+							]
+						},
+						"description": "WebSocket connection endpoint with JWT authentication. Use Postman's WebSocket feature to connect and send messages. Token is required in query parameter."
+					},
+					"response": []
+				}
+			],
+			"description": "WebSocket testing endpoints"
+		},
+		{
+			"name": "WebSocket Message Examples",
+			"item": [
+				{
+					"name": "Subscribe to Topic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							]
+						},
+						"description": "WebSocket message to subscribe to a topic:\n\n```json\n{\n  \"type\": \"subscribe\",\n  \"topic\": \"test-topic\",\n  \"last_n\": 5,\n  \"request_id\": \"req-001\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Unsubscribe from Topic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							]
+						},
+						"description": "WebSocket message to unsubscribe from a topic:\n\n```json\n{\n  \"type\": \"unsubscribe\",\n  \"topic\": \"test-topic\",\n  \"request_id\": \"req-002\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Message",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							]
+						},
+						"description": "WebSocket message to publish to a topic:\n\n```json\n{\n  \"type\": \"publish\",\n  \"topic\": \"test-topic\",\n  \"message\": {\n    \"id\": \"msg-001\",\n    \"payload\": {\n      \"text\": \"Hello World!\",\n      \"user\": \"john_doe\"\n    }\n  },\n  \"request_id\": \"req-003\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Ping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							]
+						},
+						"description": "WebSocket ping message:\n\n```json\n{\n  \"type\": \"ping\",\n  \"request_id\": \"req-004\"\n}\n```"
+					},
+					"response": []
+				}
+			],
+			"description": "Example WebSocket messages for testing"
+		},
+		{
+			"name": "WebSocket Response Examples",
+			"item": [
+				{
+					"name": "Acknowledgment Response",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							]
+						},
+						"description": "Example acknowledgment response:\n\n```json\n{\n  \"type\": \"ack\",\n  \"request_id\": \"req-001\",\n  \"topic\": \"test-topic\",\n  \"status\": \"ok\",\n  \"ts\": \"2024-01-15T10:30:00Z\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Event Message",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							]
+						},
+						"description": "Example event message received by subscribers:\n\n```json\n{\n  \"type\": \"event\",\n  \"topic\": \"test-topic\",\n  \"message\": {\n    \"id\": \"msg-001\",\n    \"payload\": {\n      \"text\": \"Hello World!\",\n      \"user\": \"john_doe\"\n    },\n    \"topic\": \"test-topic\",\n    \"timestamp\": \"2024-01-15T10:30:00Z\"\n  },\n  \"ts\": \"2024-01-15T10:30:00Z\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Error Response",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							]
+						},
+						"description": "Example error response:\n\n```json\n{\n  \"type\": \"error\",\n  \"request_id\": \"req-001\",\n  \"error\": {\n    \"code\": \"TOPIC_NOT_FOUND\",\n    \"message\": \"Topic 'nonexistent-topic' not found\"\n  },\n  \"ts\": \"2024-01-15T10:30:00Z\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Pong Response",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ws",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ws"
+							]
+						},
+						"description": "Example pong response:\n\n```json\n{\n  \"type\": \"pong\",\n  \"request_id\": \"req-004\",\n  \"ts\": \"2024-01-15T10:30:00Z\"\n}\n```"
+					},
+					"response": []
+				}
+			],
+			"description": "Example WebSocket responses"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "your-jwt-token-here",
+			"type": "string"
+		},
+		{
+			"key": "topic_name",
+			"value": "test-topic",
+			"type": "string"
+		}
+	]
+}
